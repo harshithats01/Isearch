@@ -1,0 +1,142 @@
+{% include 'admin_header.html' %}
+
+<style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #f3f3f3;
+    }
+
+    .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    h3 {
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 24px;
+        color: #8b0000;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .feedbacks-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+    }
+
+    .feedback-card {
+        background: #fff;
+        width: 100%;
+        max-width: 300px;
+        border-radius: 6px;
+        padding: 18px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        border-left: 4px solid #8b0000;
+    }
+
+    .feedback-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 12px;
+        margin-bottom: 12px;
+    }
+
+    .type-badge {
+        background: #8b0000;
+        color: white;
+        padding: 5px 12px;
+        border-radius: 4px;
+        font-size: 0.9em;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    }
+
+    .feedback-date {
+        color: #666;
+        font-size: 0.85em;
+        font-weight: 500;
+    }
+
+    .feedback-text {
+        color: #333;
+        font-size: 0.95em;
+        line-height: 1.6;
+        margin-bottom: 15px;
+        padding: 5px 0;
+    }
+
+    /* Add some themed styling elements */
+    .page-title {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 30px;
+    }
+
+    .page-title i {
+        margin-right: 12px;
+        color: #8b0000;
+        font-size: 28px;
+    }
+
+    .no-feedbacks {
+        text-align: center;
+        color: #666;
+        padding: 30px;
+        background: #fff;
+        border-radius: 6px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+<!-- Add Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+<br><br><br><br><br><br>
+<div class="container">
+    <div class="page-title">
+        <i class="fas fa-comment-alt"></i>
+        <h3>Citizen Feedback Dashboard</h3>
+    </div>
+    
+    <div class="feedbacks-grid">
+        {% for j in data['view'] %}
+            <div class="feedback-card">
+                <div class="card-header">
+                    <span class="type-badge">
+                        <i class="fas fa-user-circle"></i> {{j['first_name']}} {{j['last_name']}}
+                    </span>
+                    <span class="feedback-date">
+                        <i class="far fa-calendar-alt"></i> {{j['date']}}
+                    </span>
+                </div>
+                <div class="feedback-text">{{j['feedback']}}</div>
+            </div>
+        {% endfor %}
+        
+        {% if data['view']|length == 0 %}
+            <div class="no-feedbacks">
+                <i class="fas fa-check-circle" style="font-size: 32px; color: #8b0000; margin-bottom: 10px;"></i>
+                <p>No feedback to display at this time.</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+<br><br><br><br><br><br><br><br><br><br><br><br>
+{% include 'footer.html' %}

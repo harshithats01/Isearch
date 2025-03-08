@@ -1,0 +1,401 @@
+{% include 'admin_header.html' %}
+
+<style>
+    /* Base styles */
+    body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #f3f3f3;
+        color: #333;
+    }
+
+    h2 {
+        color: #8b0000;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 20px;
+    }
+
+    /* Form container styles */
+    form {
+        background-color: #fff;
+        border: none;
+        border-radius: 6px;
+        padding: 25px;
+        max-width: 600px;
+        margin: 20px auto;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        border-left: 5px solid #8b0000;
+    }
+
+    table {
+        width: 100%;
+    }
+
+    /* Table cells styles */
+    td {
+        padding: 12px;
+        font-size: 1rem;
+        color: #333;
+    }
+
+    /* Input styles */
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="password"]:focus {
+        border-color: #8b0000;
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(139, 0, 0, 0.1);
+    }
+
+    /* Submit and Update button styles */
+    input[type="submit"] {
+        background-color: #8b0000;
+        color: white;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.95rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 5px rgba(139, 0, 0, 0.2);
+    }
+
+    /* Hover effects for the buttons */
+    input[type="submit"]:hover {
+        background-color: #a50000;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(139, 0, 0, 0.3);
+    }
+
+    /* Spacing between fields */
+    td input {
+        margin-top: 5px;
+        margin-bottom: 10px;
+    }
+
+    /* Headings or labels */
+    td:first-child {
+        font-weight: 600;
+        color: #555;
+    }
+
+    /* Card styling for police station details */
+    .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+        padding: 20px;
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .card {
+        background: #fff;
+        border-radius: 6px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        width: 300px;
+        padding: 22px;
+        text-align: center;
+        border-left: 5px solid #8b0000;
+        transition: 0.3s;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    .card h3 {
+        color: #8b0000;
+        margin-bottom: 15px;
+        font-weight: 700;
+    }
+
+    .card p {
+        margin: 8px 0;
+        font-size: 0.95rem;
+        color: #444;
+        text-align: left;
+        padding-left: 10px;
+    }
+
+    .card .btn {
+        margin-top: 15px;
+        display: inline-block;
+        text-decoration: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-update {
+        background-color: #8b0000;
+        color: white;
+        margin-right: 8px;
+    }
+
+    .btn-delete {
+        background-color: #d32f2f;
+        color: white;
+    }
+
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Table container styling */
+    .table-container {
+        width: 90%;
+        margin: 20px auto;
+        overflow-x: auto;
+        border-radius: 6px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Table styles */
+    .data-table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #fff;
+        border-radius: 6px;
+        overflow: hidden;
+    }
+
+    /* Table header styling */
+    th {
+        background-color: #8b0000;
+        color: white;
+        padding: 14px 12px;
+        text-align: left;
+        font-size: 0.95rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    /* Table row styling */
+    .data-table td {
+        padding: 12px;
+        font-size: 0.95rem;
+        color: #333;
+        border-bottom: 1px solid #eee;
+    }
+
+    /* Alternating row colors */
+    .data-table tr:nth-child(even) {
+        background-color: #f8f8f8;
+    }
+
+    /* Hover effect for rows */
+    .data-table tr:hover {
+        background-color: #f1f1f1;
+        transition: 0.2s ease-in-out;
+    }
+
+    /* Page title with icon */
+    .page-title {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    .page-title i {
+        margin-right: 12px;
+        color: #8b0000;
+        font-size: 24px;
+    }
+
+    /* Section titles */
+    .section-title {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 30px 0 20px;
+    }
+
+    .section-title i {
+        margin-right: 10px;
+        color: #8b0000;
+    }
+
+    /* Card badge for station status */
+    .station-badge {
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        margin-bottom: 10px;
+        background: #8b0000;
+        color: white;
+        letter-spacing: 0.5px;
+    }
+</style>
+
+<!-- Add Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+<br><br><br><br><br><br>
+
+<center style="padding-top: 4%;">
+    <div class="page-title">
+        <i class="fas fa-shield-alt"></i>
+        <h2>Manage Police Stations</h2>
+    </div>
+    
+    <form method="post">
+        {% if data['up'] %}
+        <div class="section-title">
+            <i class="fas fa-edit"></i>
+            <h3>Update Station Information</h3>
+        </div>
+        <table>
+            <tr>
+                <td>Police Station Name</td>
+                <td><input type="text" name="pname" value="{{data['up'][0]['police_station_name']}}" ></td>
+            </tr>
+            <tr>
+                <td>Place</td>
+                <td><input type="text" name="place" value="{{data['up'][0]['place']}}" ></td>
+            </tr>
+            <tr>
+                <td>Phone</td>
+                <td><input type="text" name="phone" value="{{data['up'][0]['phone']}}" ></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td><input type="email" name="email" value="{{data['up'][0]['email']}}" ></td>
+            </tr>
+            <tr>
+                <td>Pin</td>
+                <td><input type="text" name="pin" value="{{data['up'][0]['pin']}}" ></td>
+            </tr>
+        </table>
+        <input type="submit" value="Update Station" name="update">
+        {% else %}
+        <div class="section-title">
+            <i class="fas fa-plus-circle"></i>
+            <h3>Register New Police Station</h3>
+        </div>
+        <table>
+            <tr>
+                <td>Police Station Name</td>
+                <td><input type="text" name="pname" id="alpha" required></td>
+            </tr>
+            <tr>
+                <td>Place</td>
+                <td><input type="text" name="place" id="alpha" required></td>
+            </tr>
+            <tr>
+                <td>Phone</td>
+                <td><input type="text" name="phone" id="phone" required></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td><input type="email" name="email" required></td>
+            </tr>
+            <tr>
+                <td>Pin</td>
+                <td><input type="text" name="pin" required></td>
+            </tr>
+            <tr>
+                <td>Username</td>
+                <td><input type="text" name="username" required></td>
+            </tr>
+            <tr>
+                <td>Password</td>
+                <td><input type="password" name="password" id="password" required></td>
+            </tr>
+        </table>
+        <input type="submit" value="Register Station" name="submit">
+    </form>
+
+    <script>
+        // Common validation function
+        function alpha(field) {
+            const value = field.value;
+            const regex = /^[a-zA-Z]+$/; // Allows only alphabetic characters (letters)
+            
+            if (!regex.test(value)) {
+                field.setCustomValidity(`${field.name.charAt(0).toUpperCase() + field.name.slice(1)} must contain only letters.`);
+            } else {
+                field.setCustomValidity('');
+            }
+        }
+
+        // Add event listener for all fields with the class "alpha"
+        document.querySelectorAll('.alpha').forEach(field => {
+            field.addEventListener('input', function() {
+                alpha(this);
+            });
+        });
+
+        document.getElementById('phone').addEventListener('input', function() {
+            const phone = this.value;
+            const phoneRegex = /^\d{10}$/; // Allows exactly 10 digits
+            
+            if (!phoneRegex.test(phone)) {
+                this.setCustomValidity('Phone number must be exactly 10 digits and contain only numbers.');
+            } else {
+                this.setCustomValidity('');
+            }
+        });
+
+        document.getElementById('password').addEventListener('input', function() {
+            const password = this.value;
+            const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{4,}$/;
+            // At least 4 characters, 1 letter, 1 number, 1 special character
+
+            if (!passwordRegex.test(password)) {
+                this.setCustomValidity('Password must be at least 4 characters long and contain at least one letter, one number, and one special character.');
+            } else {
+                this.setCustomValidity('');
+            }
+        });
+    </script>
+
+    <center style="padding-top: 7%; padding-bottom: 19%;">
+        <div class="section-title">
+            <i class="fas fa-list-alt"></i>
+            <h2>Registered Police Stations</h2>
+        </div>
+        <div class="card-container">
+            {% for j in data['view'] %}
+            <div class="card">
+                <span class="station-badge"><i class="fas fa-check-circle"></i> Active</span>
+                <h3>{{j['police_station_name']}}</h3>
+                <p><i class="fas fa-map-marker-alt"></i> <strong>Place:</strong> {{j['place']}}</p>
+                <p><i class="fas fa-phone"></i> <strong>Phone:</strong> {{j['phone']}}</p>
+                <p><i class="fas fa-envelope"></i> <strong>Email:</strong> {{j['email']}}</p>
+                <p><i class="fas fa-map-pin"></i> <strong>Pin:</strong> {{j['pin']}}</p>
+                <a href="?action=update&id={{j['login_id']}}" class="btn btn-update"><i class="fas fa-edit"></i> Update</a>
+                <a href="?action=delete&id={{j['login_id']}}" class="btn btn-delete"><i class="fas fa-trash-alt"></i> Delete</a>
+            </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</center>
+<br><br><br><br><br><br><br><br><br><br><br><br>
+{% include 'footer.html' %}

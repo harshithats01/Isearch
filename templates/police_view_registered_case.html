@@ -1,0 +1,246 @@
+{% include 'police_header.html' %}
+
+<style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #f3f3f3;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    h3 {
+        color: #8b0000;
+        font-weight: 700;
+        font-size: 1.2rem;
+        margin-bottom: 16px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 10px;
+    }
+
+    .cases-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 24px;
+        justify-content: center;
+    }
+
+    .case-card {
+        background: #fff;
+        width: 340px;
+        border-radius: 6px;
+        padding: 24px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        border-left: 4px solid #8b0000;
+        text-align: left;
+    }
+
+    .case-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .case-card p {
+        margin: 12px 0;
+        font-size: 0.95rem;
+        color: #333;
+        display: flex;
+        align-items: flex-start;
+        line-height: 1.6;
+    }
+
+    .case-card p strong {
+        min-width: 90px;
+        display: inline-block;
+        color: #8b0000;
+    }
+
+    .case-card img {
+        width: 100%;
+        height: auto;
+        border-radius: 4px;
+        object-fit: cover;
+        margin-top: 5px;
+        border: 1px solid #eaeaea;
+    }
+
+    .status {
+        display: inline-block;
+        padding: 5px 12px;
+        border-radius: 4px;
+        font-size: 0.85em;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    }
+
+    .status-open {
+        background-color: #8b0000;
+        color: white;
+    }
+
+    .status-closed {
+        background-color: #4a0000;
+        color: white;
+    }
+
+    .status-pending {
+        background-color: #c13d3d;
+        color: white;
+    }
+
+    .status-urgent {
+        background-color: #ff0000;
+        color: white;
+    }
+
+    .action-buttons {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 16px;
+        padding-top: 16px;
+        border-top: 1px solid #eee;
+    }
+
+    .action-button {
+        background-color: #f5f5f5;
+        color: #333;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        font-weight: 500;
+        text-decoration: none;
+        transition: all 0.2s;
+        margin-left: 8px;
+    }
+
+    .action-button.primary {
+        background-color: #8b0000;
+        color: white;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .action-button.primary:hover {
+        background-color: #a50000;
+        transform: translateY(-2px);
+        box-shadow: 0 3px 8px rgba(139, 0, 0, 0.2);
+    }
+
+    /* Page title styling */
+    .page-title {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 30px;
+    }
+
+    .page-title i {
+        margin-right: 12px;
+        color: #8b0000;
+        font-size: 28px;
+    }
+
+    .page-title h3 {
+        text-align: center;
+        font-size: 24px;
+        color: #8b0000;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .cases-grid {
+            padding: 15px;
+            gap: 15px;
+        }
+        
+        .case-card {
+            width: 100%;
+            max-width: 450px;
+        }
+    }
+
+    .no-cases {
+        text-align: center;
+        color: #666;
+        padding: 30px;
+        background: #fff;
+        border-radius: 6px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+<!-- Add Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+<br><br><br><br><br><br>
+<div class="container">
+    <div class="page-title">
+        <i class="fas fa-folder-open"></i>
+        <h3>Registered Cases Dashboard</h3>
+    </div>
+    
+    <div class="cases-grid">
+        {% for j in data['view'] %}
+        <div class="case-card">
+            <h3>
+                <i class="fas fa-user-circle"></i> {{j['first_name']}} {{j['last_name']}}
+            </h3>
+            <p><strong>FIR NO:</strong> {{j['fir_no']}}</p>
+            <p><strong>PLACE:</strong> {{j['place']}}</p>
+            <p><strong>ACT:</strong> {{j['act']}}</p>
+            <p><strong>OCCURANCE:</strong> {{j['occurance']}}</p>
+            <p><strong>DESCRIPTION:</strong> {{j['description']}}</p>
+            <p><strong>Image:</strong></p>
+            <img src="{{j['image']}}" alt="Case Image">
+            <p>
+                <strong>Date:</strong> 
+                <span><i class="far fa-calendar-alt"></i> {{j['date']}}</span>
+            </p>
+            <p>
+                <strong>Status:</strong> 
+                <span class="status status-{% if j['status'] == 'Open' %}open{% elif j['status'] == 'Closed' %}closed{% elif j['status'] == 'Pending' %}pending{% elif j['status'] == 'Urgent' %}urgent{% else %}open{% endif %}">
+                    <i class="fas {% if j['status'] == 'Open' %}fa-folder-open{% elif j['status'] == 'Closed' %}fa-folder{% elif j['status'] == 'Pending' %}fa-clock{% elif j['status'] == 'Urgent' %}fa-exclamation-circle{% else %}fa-folder-open{% endif %}"></i>
+                    {{j['status']}}
+                </span>
+            </p>
+            
+            <div class="action-buttons">
+                {% if j['status'] == 'pending' %}
+                <a href="?action=update&id={{j['case_id']}}" class="action-button primary">
+                    <i class="fas fa-check-circle"></i> Case Closed
+                </a>
+                {% else %}
+                <span class="action-button">
+                    <i class="fas {% if j['status'] == 'Open' %}fa-folder-open{% elif j['status'] == 'Closed' %}fa-folder{% elif j['status'] == 'Pending' %}fa-clock{% elif j['status'] == 'Urgent' %}fa-exclamation-circle{% else %}fa-folder-open{% endif %}"></i>
+                    {{j['status']}}
+                </span>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+        
+        {% if data['view']|length == 0 %}
+        <div class="no-cases">
+            <i class="fas fa-check-circle" style="font-size: 32px; color: #8b0000; margin-bottom: 10px;"></i>
+            <p>No cases to display at this time.</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+<br><br><br><br><br><br><br><br><br><br><br><br>
+{% include 'footer.html' %}

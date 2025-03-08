@@ -1,0 +1,241 @@
+{% include 'public_header.html' %}
+
+<style>
+    body {
+      background-color: #f5f5f5;
+      font-family: 'Roboto', sans-serif;
+      font-size: 16px;
+      line-height: 1.25;
+      letter-spacing: 0.5px;
+    }
+
+    * {
+      box-sizing: border-box;
+      transition: .25s all ease;
+    }
+
+    .login-container {
+      display: block;
+      position: relative;
+      z-index: 0;
+      margin: 4rem auto 0;
+      padding: 5rem 4rem 0 4rem;
+      width: 100%;
+      max-width: 400px;
+      min-height: 500px;
+      background-image: url(static/images/img6.avif);
+      box-shadow: 0 50px 70px -20px rgba(0, 0, 0, 0.85);
+      margin-bottom: 10%;
+    }
+
+    .login-container:after {
+      content: '';
+      display: inline-block;
+      position: absolute;
+      z-index: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-image: radial-gradient(ellipse at left bottom, rgba(128, 0, 0, 0.7) 0%, rgba(180, 0, 0, 0.6) 59%, rgba(139, 0, 0, 0.7) 100%);
+      box-shadow: 0 -20px 150px -20px rgba(0, 0, 0, 0.5);
+    }
+
+    .form-login {
+      position: relative;
+      z-index: 1;
+      padding-bottom: 4.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+    }
+
+    .login-nav {
+      position: relative;
+      padding: 0;
+      margin-bottom: 3rem;
+    }
+
+    .login-nav__item {
+      list-style: none;
+      display: inline-block;
+      margin-left: 34%;
+    }
+
+    .login-nav__item + .login-nav__item {
+      margin-left: 2.25rem;
+    }
+
+    .login-nav__item a {
+      position: relative;
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      text-transform: uppercase;
+      font-weight: 700;
+      font-size: 1.25rem;
+      padding-bottom: .5rem;
+      transition: .20s all ease;
+    }
+
+    .login-nav__item.active a,
+    .login-nav__item a:hover{
+      color: #ffffff;
+      transition: .15s all ease;
+    }
+
+    .login-nav__item a:after {
+      content: '';
+      display: inline-block;
+      height: 10px;
+      background-color: rgb(255, 255, 255);
+      position: absolute;
+      right: 100%;
+      bottom: -1px;
+      left: 0;
+      border-radius: 50%;
+      transition: .15s all ease;
+    }
+
+    .login-nav__item a:hover:after,
+    .login-nav__item.active a:after{
+      background-color: #ffcccb;
+      height: 2px;
+      right: 0;
+      bottom: 2px;
+      border-radius: 0;
+      transition: .20s all ease;
+    }
+    
+    .login__label {
+      display: block;
+      padding-left: 1rem;
+    }
+
+    .login__label,
+    .login__label--checkbox {
+      color: rgba(255, 255, 255, 0.7);
+      text-transform: uppercase;
+      font-size: .75rem;
+      margin-bottom: 1rem;
+    }
+
+    .login__input {
+      color: white;
+      font-size: 1.15rem;
+      width: 100%;
+      padding: .75rem 1rem;
+      border: 2px solid transparent;
+      outline: none;
+      border-radius: 0.5rem;
+      background-color: rgba(80, 0, 0, 0.6);
+      letter-spacing: 1px;
+      margin-bottom: 2.5rem;
+    }
+
+    .login__input:hover,
+    .login__input:focus{
+      color: white;
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      background-color: rgba(100, 0, 0, 0.5);
+    }
+
+    .login__input + .login__label {
+      margin-top: 2.5rem;
+    }
+
+    .login__submit {
+      color: #ffffff;
+      font-size: 1rem;
+      font-family: 'Roboto', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 700;
+      padding: .75rem;
+      border-radius: 0.5rem;
+      display: block;
+      width: 100%;
+      background-color: #8b0000;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .login__submit:hover {
+      background-color: #a50000;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .login__forgot {
+      display: block;
+      margin-top: 1rem;
+      margin-bottom: 2.5rem;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.85);
+      font-size: .75rem;
+      text-decoration: none;
+      position: relative;
+      z-index: 1;
+    }
+
+    .login__forgot:hover {
+      color: #ffcccb;
+    }
+
+    /* Police badge icon styling */
+    .badge-icon {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .badge-icon i {
+      font-size: 50px;
+      color: #ffffff;
+    }
+
+    /* Add lock icon to inputs */
+    .input-wrapper {
+      position: relative;
+    }
+
+    .icon-prefix {
+      position: absolute;
+      left: 15px;
+      top: 12px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .login__input {
+      padding-left: 40px;
+    }
+</style>
+
+<!-- Add Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<br><br><br><br><br><br>
+<div class="login-container">
+    <form action="" class="form-login" method="post">
+      <div class="badge-icon">
+        <i class="fas fa-shield-alt"></i>
+      </div>
+      
+      <ul class="login-nav">
+        <li class="login-nav__item active">
+          <a href="#">Login Portal</a>
+        </li>
+      </ul>
+      
+      <div class="input-wrapper">
+        <i class="fas fa-user icon-prefix"></i>
+        <input id="login-input-user" class="login__input" type="text" name="username" placeholder="Username" required/>
+      </div>
+      
+      <div class="input-wrapper">
+        <i class="fas fa-lock icon-prefix"></i>
+        <input id="login-input-password" class="login__input" type="password" name="password" placeholder="Password" required/>
+      </div>
+      
+      <button class="login__submit" name="submit">Sign In</button>
+    </form>
+    <a href="#" class="login__forgot">Forgot Password?</a>
+  </div>
+
+{% include 'footer.html' %}
